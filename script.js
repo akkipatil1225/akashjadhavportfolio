@@ -264,3 +264,62 @@ setInterval(() => {
         }
     });
 }, 1500);
+
+
+// --- Cyber Timeline Scroll Animation ---
+document.addEventListener('DOMContentLoaded', () => {
+    const timelines = document.querySelectorAll('.cyber-timeline');
+    
+    if (timelines.length > 0) {
+        const updateTimelines = () => {
+            const windowHeight = window.innerHeight;
+            const drawPoint = windowHeight * 0.6;
+            
+            timelines.forEach(timeline => {
+                const progressLine = timeline.querySelector('.cyber-timeline-progress');
+                const timelineItems = timeline.querySelectorAll('.cyber-timeline-item');
+                
+                if (!progressLine || timelineItems.length === 0) return;
+                
+                const rect = timeline.getBoundingClientRect();
+                
+                // Distance from the draw point to the top of the timeline container
+                let heightToDraw = drawPoint - rect.top;
+                
+                // Clamp the height between 0 and the total height of the timeline
+                if (heightToDraw < 0) heightToDraw = 0;
+                if (heightToDraw > rect.height) heightToDraw = rect.height;
+                
+                // Update the height of the glowing progress line
+                progressLine.style.height = `${heightToDraw}px`;
+                
+                // Check each timeline item dot
+                timelineItems.forEach(item => {
+                    const dot = item.querySelector('.cyber-timeline-dot');
+                    if (dot) {
+                        const dotTop = item.offsetTop + dot.offsetTop;
+                        
+                        // If the progress line has reached or passed this dot, light it up
+                        if (heightToDraw >= dotTop) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        };
+
+        // Listen for scroll and resize events
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(updateTimelines);
+        });
+        
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(updateTimelines);
+        });
+        
+        // Initial check on page load
+        updateTimelines();
+    }
+});
