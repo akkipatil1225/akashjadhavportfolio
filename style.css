@@ -1104,3 +1104,403 @@ footer {
         display: none !important;
     }
 }
+
+
+/* --- Cyber Experience Section Updates --- */
+.cyber-bg {
+    position: relative;
+    background: 
+        linear-gradient(rgba(6, 20, 38, 0.85), rgba(6, 20, 38, 0.95)),
+        linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 30px 30px, 30px 30px;
+    background-position: center center;
+}
+
+.cyber-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Timeline Vertical Line (Base/Dim Track) */
+.cyber-timeline::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: rgba(100, 255, 218, 0.1);
+    top: 0;
+    bottom: 0;
+    left: 20px;
+}
+
+/* Timeline Progress Line (Bright Glowing) */
+.cyber-timeline-progress {
+    position: absolute;
+    width: 2px;
+    background: var(--accent);
+    top: 0;
+    bottom: auto;
+    left: 20px;
+    height: 0; /* Updated via JS */
+    box-shadow: 0 0 15px var(--accent), 0 0 5px var(--accent);
+    z-index: 1;
+}
+
+.cyber-timeline-item {
+    padding: 0 0 40px 60px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Glowing Nodes */
+.cyber-timeline-dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: var(--bg-base);
+    border: 2px solid rgba(100, 255, 218, 0.3);
+    border-radius: 50%;
+    left: 14px; /* Align to center of the 2px line (20px left + 1px center - 7px radius) */
+    top: 30px;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+/* Active State for Nodes */
+.cyber-timeline-dot.active {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Modern Card */
+.cyber-timeline-content {
+    background: rgba(10, 25, 47, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 255, 218, 0.15);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover Animation */
+.cyber-timeline-item:hover .cyber-timeline-content {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.15);
+    border-color: rgba(100, 255, 218, 0.4);
+}
+
+.cyber-timeline-item:hover .cyber-timeline-dot {
+    background-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+}
+
+/* Header Layout (Title + Date) */
+.cyber-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cyber-timeline-header h3 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cyber-date {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    background: rgba(100, 255, 218, 0.05);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+/* Company Highlight */
+.cyber-timeline-content h4 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Bullet Points */
+.cyber-timeline-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cyber-timeline-content ul li {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 25px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.bullet-icon {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-size: 0.75rem;
+    color: var(--accent);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .cyber-timeline::before,
+    .cyber-timeline-progress {
+        left: 10px;
+    }
+    
+    .cyber-timeline-dot {
+        left: 4px;
+    }
+    
+    .cyber-timeline-item {
+        padding-left: 40px;
+    }
+    
+    .cyber-timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+/* --- Cyber Skills Section Updates --- */
+.cyber-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.cyber-skill-card {
+    background: rgba(10, 25, 47, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 255, 218, 0.15);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cyber-skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.15);
+    border-color: rgba(100, 255, 218, 0.4);
+}
+
+.skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    padding-bottom: 15px;
+}
+
+.skill-card-header i {
+    font-size: 1.8rem;
+    color: var(--accent);
+}
+
+.skill-card-header h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background: rgba(100, 255, 218, 0.05);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: rgba(100, 255, 218, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+}
+
+/* --- Cyber Education Updates --- */
+.edu-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.cyber-timeline-content h4 i {
+    margin-right: 8px;
+    color: var(--accent);
+}
+
+
+/* --- Open To Work Badge --- */
+.open-to-work-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(100, 255, 218, 0.1);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(100, 255, 218, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0); }
+}
+
+/* --- Terminal Section --- */
+.cyber-terminal {
+    background: #0a192f;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+    font-family: var(--font-mono);
+}
+
+.terminal-header {
+    background: #112240;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.terminal-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.terminal-btn.red { background: #ff5f56; }
+.terminal-btn.yellow { background: #ffbd2e; }
+.terminal-btn.green { background: #27c93f; }
+
+.terminal-title {
+    margin-left: auto;
+    color: #8892b0;
+    font-size: 0.85rem;
+}
+
+.terminal-body {
+    padding: 25px;
+    color: #ccd6f6;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.terminal-body p {
+    margin-bottom: 12px;
+}
+
+.terminal-body .prompt {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.terminal-body .output {
+    padding-left: 15px;
+    display: block;
+    margin-top: 5px;
+    color: #a8b2d1;
+}
+
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* --- Stats Grid --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+}
+
+.stat-label {
+    color: #ccd6f6;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* --- Tools Arsenal Adjustments --- */
+.tool-item {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(100, 255, 218, 0.1);
+}
+.tool-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
