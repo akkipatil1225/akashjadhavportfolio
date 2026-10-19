@@ -4,7 +4,19 @@ package-lock.json
 
 # Environment variables & secrets
 .env
+.env.*
+!.env.example
 *.local
+*.pem
+*.key
+*.cert
+*.token
+*.secret
+
+# Splunk credentials and private session files
+splunk-*.token
+session-secret*
+*.session
 
 # Logs
 logs/
