@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKASH JADHAV - SOC & Cyber Security Analyst</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #070b14;
+            --bg-surface: rgba(13, 21, 38, 0.7);
+            --bg-surface-solid: #0d1526;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dim: rgba(6, 182, 212, 0.15);
+            --accent-blue: #3b82f6;
+            --accent-blue-dim: rgba(59, 130, 246, 0.1);
+            --border-light: rgba(148, 163, 184, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Animated SOC Background Elements */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -3;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 20%; left: 50%; transform: translate(-50%, -50%);
+            width: 80vw; height: 80vh;
+            background: radial-gradient(circle, var(--accent-blue-dim) 0%, transparent 60%);
+            z-index: -2;
+            opacity: 0.5;
+        }
+
+        @keyframes scanline {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .scanline {
+            position: fixed;
+            left: 0;
+            width: 100vw;
+            height: 15vh;
+            background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.05), transparent);
+            animation: scanline 10s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes pulseNode {
+            0% { opacity: 0.1; box-shadow: 0 0 0px var(--accent-cyan); }
+            50% { opacity: 0.4; box-shadow: 0 0 10px var(--accent-cyan); }
+            100% { opacity: 0.1; box-shadow: 0 0 0px var(--accent-cyan); }
+        }
+
+        .network-nodes {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .node {
+            position: absolute;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: pulseNode 4s infinite;
+        }
+
+        .node-1 { width: 3px; height: 3px; top: 15%; left: 10%; animation-duration: 3s; }
+        .node-2 { width: 4px; height: 4px; top: 60%; right: 15%; animation-duration: 5s; background: var(--accent-blue); }
+        .node-3 { width: 2px; height: 2px; bottom: 20%; left: 30%; animation-duration: 4.5s; }
+        
+        .data-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+            height: 1px;
+            width: 200px;
+        }
+
+        .data-line-1 { top: 15%; left: 10%; transform: rotate(45deg); transform-origin: left; }
+        .data-line-2 { top: 60%; right: 15%; transform: rotate(-30deg); transform-origin: right; width: 150px;}
+
+        /* Main Container */
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            padding: 50px 60px;
+            border-top: 3px solid var(--accent-cyan);
+        }
+
+        /* Hero Header */
+        header {
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: var(--text-primary);
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: var(--accent-cyan);
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--accent-cyan-dim);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info span::before {
+            content: '[]';
+            color: var(--accent-blue);
+            margin-right: 8px;
+            font-weight: 500;
+            letter-spacing: -2px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 35px;
+        }
+
+        h2.section-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2.section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-cyan);
+            margin-right: 15px;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        h2.section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-light), transparent);
+            margin-left: 20px;
+        }
+
+        /* Profile */
+        .summary-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* SOC Skills Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .dash-card {
+            background: rgba(13, 21, 38, 0.8);
+            border: 1px solid var(--border-light);
+            border-top: 2px solid var(--accent-blue);
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-card:hover {
+            border-color: var(--accent-cyan-dim);
+            transform: translateY(-2px);
+            border-top: 2px solid var(--accent-cyan);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+
+        .card-header h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prof-tag {
+            font-family: 'IBM Plex Sans', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.08);
+            padding: 3px 8px;
+            border-radius: 2px;
+            border: 1px solid var(--accent-cyan-dim);
+            text-align: center;
+        }
+
+        .tag-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag-list li {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-light);
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .tag-list li:hover {
+            border-color: var(--accent-cyan);
+            color: #fff;
+            background: var(--accent-cyan-dim);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--border-light));
+        }
+
+        .job-card {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-base);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .job-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .job-company {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            margin-top: 2px;
+            display: block;
+        }
+
+        .job-date {
+            font-family: 'IBM Plex Sans', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.03);
+            padding: 3px 6px;
+            border-radius: 2px;
+        }
+
+        .job-list {
+            list-style: none;
+        }
+
+        .job-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .sec-bullet {
+            color: #e2e8f0;
+            font-weight: 400;
+        }
+
+        .sec-bullet::before {
+            content: '>>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-family: 'IBM Plex Sans', monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .it-bullet {
+            color: var(--text-muted);
+        }
+
+        .it-bullet::before {
+            content: '>';
+            position: absolute;
+            left: 5px;
+            color: var(--text-muted);
+            font-family: 'IBM Plex Sans', monospace;
+            font-size: 0.8rem;
+        }
+
+        /* Education */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .edu-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-light);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edu-info h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .edu-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .edu-meta {
+            text-align: right;
+            font-family: 'IBM Plex Sans', monospace;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* PDF & Print Enhancements */
+        @media print {
+            @page {
+                size: A4;
+                margin: 12mm;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .bg-grid, .bg-glow, .scanline, .network-nodes {
+                display: none !important;
+            }
+            body {
+                background: #070b14 !important;
+                font-size: 11px; /* Scaled slightly down to guarantee 2 pages max */
+            }
+            .container {
+                box-shadow: none;
+                border: 0;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+                background: transparent;
+            }
+            h1 { font-size: 24px; }
+            section { margin-bottom: 20px; }
+            .dash-card { page-break-inside: avoid; margin-bottom: 5px; }
+            .job-card { page-break-inside: avoid; }
+            .edu-card { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated SOC Elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="scanline"></div>
+    <div class="network-nodes">
+        <div class="node node-1"></div>
+        <div class="data-line data-line-1"></div>
+        <div class="node node-2"></div>
+        <div class="data-line data-line-2"></div>
+        <div class="node node-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>AKASH JADHAV</h1>
+            <div class="subtitle">SOC ANALYST | CYBER SECURITY ANALYST | SIEM</div>
+            <div class="contact-info">
+                <span>+91 9145361225</span>
+                <span>akashdjadhav3730@gmail.com</span>
+                <span>Chh. Sambhajinagar</span>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">Professional Summary</h2>
+            <p class="summary-text">
+                Dedicated Technical Support Engineer and Cybersecurity professional with 2.5+ years of experience managing, securing, and troubleshooting enterprise Windows and Linux environments. Skilled in vulnerability assessment, endpoint protection, network traffic analysis, and resolving complex technical issues to ensure seamless, secure business operations. Adept at system administration, vendor coordination, and delivering high-quality technical solutions within strict deadlines.
+            </p>
+        </section>
+
+        <!-- Dedicated SOC & Cyber Security Skills Dashboard -->
+        <section class="soc-skills-section">
+            <h2 class="section-title">SOC & Cyber Security Skills</h2>
+            
+            <div class="dashboard-grid">
+                
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>SOC Operations</h3>
+                        <span class="prof-tag">Working Knowledge</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>Security Monitoring</li>
+                        <li>Alert Monitoring</li>
+                        <li>Alert Investigation</li>
+                        <li>Incident Triage</li>
+                        <li>Incident Analysis</li>
+                        <li>Incident Escalation</li>
+                        <li>Incident Documentation</li>
+                        <li>Security Event Monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>SIEM</h3>
+                        <span class="prof-tag">Fundamental Knowledge</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>Splunk</li>
+                        <li>Log Analysis</li>
+                        <li>Windows Event Logs</li>
+                        <li>Security Event Analysis</li>
+                        <li>SIEM Monitoring</li>
+                        <li>Dashboard Monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Threat Detection</h3>
+                        <span class="prof-tag">Working Knowledge</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>Threat Detection</li>
+                        <li>Suspicious Activity Analysis</li>
+                        <li>IOC Analysis</li>
+                        <li>Authentication Event Analysis</li>
+                        <li>Security Alert Analysis</li>
+                    </ul>
+                </div>
+
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Endpoint Security / EDR</h3>
+                        <span class="prof-tag">Hands-on Exposure</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>SentinelOne</li>
+                        <li>Trellix</li>
+                        <li>EDR Monitoring</li>
+                        <li>Endpoint Security</li>
+                        <li>Endpoint Troubleshooting</li>
+                    </ul>
+                </div>
+
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Network Security</h3>
+                        <span class="prof-tag">Working Knowledge</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>TCP/IP</li>
+                        <li>DNS</li>
+                        <li>DHCP</li>
+                        <li>LAN/WAN</li>
+                        <li>Firewall</li>
+                        <li>Zscaler</li>
+                        <li>Network Traffic Analysis</li>
+                    </ul>
+                </div>
+
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Cyber Security Tools</h3>
+                        <span class="prof-tag">Hands-on Experience</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>Nmap</li>
+                        <li>Wireshark</li>
+                        <li>Kali Linux</li>
+                        <li>Burp Suite</li>
+                        <li>OpenVAS</li>
+                        <li>Metasploit</li>
+                        <li>Hydra</li>
+                    </ul>
+                </div>
+
+                <div class="dash-card" style="grid-column: 1 / -1;">
+                    <div class="card-header">
+                        <h3>Cyber Security Fundamentals</h3>
+                        <span class="prof-tag">Core Knowledge</span>
+                    </div>
+                    <ul class="tag-list">
+                        <li>CIA Triad</li>
+                        <li>Authentication & Authorization</li>
+                        <li>Access Control</li>
+                        <li>Vulnerability Management</li>
+                        <li>Incident Response Fundamentals</li>
+                        <li>Network Security Fundamentals</li>
+                        <li>Endpoint Security Fundamentals</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">Sr Technical Analyst</span>
+                            <span class="job-company">PROGRESSIVE Infotech PVT LTD.</span>
+                        </div>
+                        <span class="job-date">Ending Jun 2025</span>
+                    </div>
+                    <ul class="job-list">
+                        <li class="sec-bullet">Performed vulnerability scanning and basic penetration testing utilizing Kali Linux toolsets (OpenVAS, Metasploit).</li>
+                        <li class="sec-bullet">Leveraged tools including Nmap, Wireshark, Metasploit, Hydra, and Burp Suite for advanced security analysis.</li>
+                        <li class="sec-bullet">Identified and mitigated security threats, malware infections, and unauthorized access attempts.</li>
+                        <li class="sec-bullet">Diagnosed and resolved complex LAN/WAN, VPN, and network security infrastructure issues.</li>
+                        <li class="sec-bullet">Monitored system security utilizing centralized antivirus, firewall, and endpoint protection tools.</li>
+                        <li class="sec-bullet">Applied regular system patches, updates, and ensured compliance with corporate security policies.</li>
+                        <li class="it-bullet">Handled Microsoft 365 & Outlook configuration, implemented email security, and provided phishing protection.</li>
+                        <li class="it-bullet">Managed Active Directory operations including user creation, password reset, group policies, and access control.</li>
+                        <li class="it-bullet">Logged and tracked incidents using the ManageEngine ticketing system, ensuring timely resolutions.</li>
+                        <li class="it-bullet">Provided remote support using Kasaya Portal & Quick Assist, working with L2/L3 teams for critical incident escalation.</li>
+                        <li class="it-bullet">Executed data backup, recovery, and disaster management procedures.</li>
+                        <li class="it-bullet">Installed, configured, and troubleshot Windows/Linux operating systems and core enterprise applications.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">L1 IT Support Engineer</span>
+                            <span class="job-company">3I-INFOTECH LIMITED</span>
+                        </div>
+                        <span class="job-date">Ending Mar 2025</span>
+                    </div>
+                    <ul class="job-list">
+                        <li class="sec-bullet">Ensured compliance with company IT policies and maintained comprehensive documentation of resolved issues.</li>
+                        <li class="sec-bullet">Assisted in access rights management and identity enforcement via Active Directory.</li>
+                        <li class="it-bullet">Provided first-level technical support to users for hardware, software, and basic networking issues.</li>
+                        <li class="it-bullet">Gained hands-on experience resolving LAN/WAN, VPN issues, and performing basic network troubleshooting.</li>
+                        <li class="it-bullet">Logged and tracked incidents through the ticketing system to ensure timely and effective resolution.</li>
+                        <li class="it-bullet">Supported Windows OS, MS Office, email configurations, and resolved antivirus issues.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">Desktop Support Engineer</span>
+                            <span class="job-company">AARNA TECHNOLOGY PVT LTD.</span>
+                        </div>
+                        <span class="job-date">Sep 2023 &ndash; 2025</span>
+                    </div>
+                    <ul class="job-list">
+                        <li class="sec-bullet">Performed routine data backup, recovery, and essential system security tasks.</li>
+                        <li class="sec-bullet">Performed system upgrades, patch management, and antivirus installation and updates.</li>
+                        <li class="sec-bullet">Managed user accounts in Active Directory, executing password resets and enforcing access control.</li>
+                        <li class="it-bullet">Installed, configured, and maintained operating systems (Windows, macOS) and software applications.</li>
+                        <li class="it-bullet">Troubleshot and resolved software and network issues for enterprise desktops, laptops, and peripherals.</li>
+                        <li class="it-bullet">Assisted with network troubleshooting (DNS, DHCP, TCP/IP) and resolved connectivity issues.</li>
+                        <li class="it-bullet">Documented and tracked issues using a ticketing system for timely operational resolution.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Education</h2>
+            <div class="edu-grid">
+                
+                <div class="edu-card">
+                    <div class="edu-info">
+                        <h3>Master Of Computer Application (Pursuing)</h3>
+                        <p>Savitribai Phule University, Pune</p>
+                    </div>
+                    <div class="edu-meta">
+                        Expected 2026
+                    </div>
+                </div>
+
+                <div class="edu-card">
+                    <div class="edu-info">
+                        <h3>Bachelor Of Computer Science</h3>
+                        <p>Bhamu University (Dr. Babasaheb Ambedkar Marathwada University), Aurangabad</p>
+                    </div>
+                    <div class="edu-meta">
+                        73.07% | 2024
+                    </div>
+                </div>
+
+                <div class="edu-card">
+                    <div class="edu-info">
+                        <h3>HSC (Higher Secondary Certificate)</h3>
+                        <p>Maharashtra State Board of Secondary and Higher Secondary Education, Pune</p>
+                    </div>
+                    <div class="edu-meta">
+                        81.67% | 2021
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

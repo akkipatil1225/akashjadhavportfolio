@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOC Analyst Home Lab | Akash Dattu Jadhav</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Sans:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+    <!-- SOC Background Elements -->
+    <div id="soc-background">
+        <canvas id="network-canvas"></canvas>
+        <div class="grid-overlay"></div>
+        <div class="scanlines"></div>
+        <div class="hero-glow"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html#home" class="logo">
+                <img src="images/aj-cyber-logo.png" alt="AJ.CYBER Logo" class="logo-img">
+                <span class="logo-text"><span class="logo-aj">AJ</span><span class="logo-dot">.</span><span class="logo-cyber">CYBER</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#projects"><i class="fa-solid fa-arrow-left"></i> Portfolio</a></li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#detections">Detections</a></li>
+                <li><a href="#incidents">Incidents</a></li>
+                <li><a href="#security-boundary">Security</a></li>
+                <li><a href="public/resume/Akash_Jadhav_SOC_Analyst_Resume.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i> Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero Section: Balanced Two-Column Layout -->
+    <section class="project-hero" id="overview">
+        <div class="container project-hero-grid">
+            <div class="project-hero-content">
+                <div class="open-to-work-badge" style="background: rgba(0, 255, 136, 0.1); border-color: rgba(0, 255, 136, 0.4); color: #00ff88; align-self: flex-start; margin-bottom: 14px;">
+                    <span class="pulse-dot"></span> SIEM &amp; DETECTION ENGINEERING CASE STUDY
+                </div>
+                <h1 class="project-hero-title">SOC Analyst Home Lab</h1>
+                <h3 class="project-hero-subtitle">
+                    ENTERPRISE TELEMETRY PIPELINE • CUSTOM SIEM DETECTIONS • INCIDENT TRIAGE
+                </h3>
+                <p class="project-hero-summary">
+                    An isolated, defensive cybersecurity home lab built to simulate an enterprise Security Operations Center (SOC). 
+                    Demonstrates end-to-end Windows and Sysmon telemetry engineering, custom threat detection queries in Splunk Enterprise, 
+                    a 17-panel futuristic Cyber Command Center dashboard with World Map HUD, and structured NIST SP 800-61r2 incident investigations.
+                </p>
+
+                <div class="project-hero-actions">
+                    <a href="#dashboard" class="btn btn-primary"><i class="fa-solid fa-chart-column"></i> Explore Dashboard HUD</a>
+                    <a href="#detections" class="btn btn-secondary"><i class="fa-solid fa-code"></i> View SPL Detections</a>
+                    <a href="http://localhost:8000" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="Opens local Splunk Enterprise Web on this host workstation (requires local Splunk service running on port 8000)">
+                        <i class="fa-solid fa-desktop"></i> Open Live Splunk Dashboard <span class="badge-local-pc">LOCAL PC</span>
+                    </a>
+                    <a href="#architecture" class="btn btn-secondary"><i class="fa-solid fa-diagram-project"></i> Architecture Walkthrough</a>
+                </div>
+
+                <!-- Lab Metadata Strip -->
+                <div class="lab-meta-grid">
+                    <div class="lab-meta-item">
+                        <span class="key">Target Enclave Host</span>
+                        <span class="val accent">DESKTOP-FOGONK9</span>
+                    </div>
+                    <div class="lab-meta-item">
+                        <span class="key">SIEM Platform</span>
+                        <span class="val">Splunk Enterprise (TCP:9997)</span>
+                    </div>
+                    <div class="lab-meta-item">
+                        <span class="key">Dedicated Repository</span>
+                        <span class="val accent">index="endpoint_logs"</span>
+                    </div>
+                    <div class="lab-meta-item">
+                        <span class="key">Telemetry Ingestion</span>
+                        <span class="val">Sysmon (XML) + WinEventLog</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Dashboard HUD Preview Frame -->
+            <div class="project-hero-preview">
+                <div class="hero-preview-frame">
+                    <div class="preview-frame-header">
+                        <div class="frame-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="frame-title"><i class="fa-solid fa-terminal" style="color: var(--accent);"></i> CYBER COMMAND CENTER HUD</span>
+                        <span class="frame-status"><span class="pulse-dot"></span> LIVE ENCLAVE</span>
+                    </div>
+                    <div class="preview-frame-body">
+                        <a href="images/soc-lab/01_soc_dashboard_overview.png" target="_blank" title="Click to view full-resolution dashboard">
+                            <img src="images/soc-lab/01_soc_dashboard_overview.png" alt="SOC Analyst Cyber Command Center Dashboard Overview" class="preview-img" loading="eager">
+                            <div class="preview-frame-overlay">
+                                <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Full 17-Panel HUD</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="preview-frame-footer">
+                        <div class="frame-meta-pill">
+                            <i class="fa-solid fa-database" style="color: var(--accent);"></i> <code>index="endpoint_logs"</code>
+                        </div>
+                        <div class="frame-meta-pill">
+                            <i class="fa-solid fa-gauge-high" style="color: var(--accent);"></i> <strong>67,720+</strong> Events
+                        </div>
+                        <div class="frame-meta-pill">
+                            <i class="fa-solid fa-shield-halved" style="color: #00ff88;"></i> DEFCON 5
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lab Telemetry Metrics -->
+    <section class="section" style="padding: 30px 0 50px;">
+        <div class="container">
+            <div class="project-stats-grid">
+                <div class="cyber-skill-card stat-card project-stat-card">
+                    <div class="stat-card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <div class="stat-number">67,720+</div>
+                    <p class="stat-label">24h Sysmon Events Ingested</p>
+                </div>
+                <div class="cyber-skill-card stat-card project-stat-card">
+                    <div class="stat-card-icon"><i class="fa-solid fa-terminal"></i></div>
+                    <div class="stat-number">59,540+</div>
+                    <p class="stat-label">Process Creations (Event ID 1)</p>
+                </div>
+                <div class="cyber-skill-card stat-card project-stat-card">
+                    <div class="stat-card-icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="stat-number">350+</div>
+                    <p class="stat-label">Network Sessions (Event ID 3)</p>
+                </div>
+                <div class="cyber-skill-card stat-card project-stat-card">
+                    <div class="stat-card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="stat-number">17</div>
+                    <p class="stat-label">Tactical &amp; Analytical Panels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture & Pipeline Section -->
+    <section id="architecture" class="section cyber-bg">
+        <div class="container">
+            <h2 class="section-title">Architecture &amp; Data Pipeline <span class="line"></span></h2>
+            <p>
+                Telemetry originates on the Windows endpoint, captured continuously by Microsoft Sysinternals Sysmon and the Windows Security Event Log. 
+                The Splunk Universal Forwarder running as a <code>LocalSystem</code> service streams events over encrypted TCP port 9997 
+                into Splunk Enterprise, where logs are indexed into the dedicated <code>endpoint_logs</code> repository for detection and correlation.
+            </p>
+
+            <div class="architecture-box">
++---------------------------------------------------------------------------------------------------+
+|                                     Windows 10/11 Host / Enclave                                  |
+|                                                                                                   |
+|  [ Endpoint Behavioral Activity ]                       [ Windows Security Auditing ]             |
+|                  |                                                      |                         |
+|                  v                                                      v                         |
+|      Microsoft Sysinternals Sysmon                       Windows Security Event Log               |
+|      - Process Creation (Event ID 1)                     - Failed Logons (Event ID 4625)          |
+|      - File Dropping &amp; Writes (Event ID 11)              - Account Creations (Event ID 4720)      |
+|      - Network Sockets (Event ID 3)                      - Privilege Escalation Audits            |
+|                  \                                                      /                         |
+|                   +--------------------------+-------------------------+                          |
+|                                              |                                                    |
+|                                              v                                                    |
+|                              Splunk Universal Forwarder Service                                   |
+|                              - inputs.conf (renderXml = true)                                     |
+|                              - outputs.conf (TCP Stream: 9997)                                    |
++----------------------------------------------|----------------------------------------------------+
+                                               | Encrypted TCP Stream (TCP:9997)
+                                               v
++---------------------------------------------------------------------------------------------------+
+|                                   Splunk Enterprise SIEM Indexer                                  |
+|                                                                                                   |
+|  Repository: index="endpoint_logs"                                                                |
+|  Sourcetypes:                                                                                     |
+|    - WinEventLog:Security (Dual XML &amp; KV Parsing)                                                 |
+|    - WinEventLog:Microsoft-Windows-Sysmon/Operational (XML Structured)                            |
+|                                                                                                   |
+|  [ Detection Engineering Layer ]                    [ Cyber Command Center Presentation ]         |
+|    - 10-Minute Binned Brute Force (T1110)             - 9 Operational Rows / 17 Tactical Panels   |
+|    - Local User Persistence (T1136.001)               - Vector World Map HUD &amp; Enclave Beacon     |
+|    - Obfuscated PowerShell &amp; Droppers (T1059.001)     - Live Terminal Telemetry Ingestion Feed    |
+|    - In-Stream Sensitive Credential Masking           - 4 Timechart Multi-Vector Sparklines       |
++---------------------------------------------------------------------------------------------------+
+            </div>
+
+            <div class="cyber-skills-grid" style="margin-top: 25px;">
+                <div class="cyber-skill-card">
+                    <div class="skill-card-header">
+                        <i class="fa-solid fa-microchip"></i>
+                        <h3>Endpoint Telemetry (Sysmon)</h3>
+                    </div>
+                    <p class="edu-desc">Deployed Microsoft Sysmon with the community-vetted SwiftOnSecurity configuration schema. Captures process creation hierarchies, hashes (SHA256), command-line arguments, network socket initiations, and file integrity artifacts.</p>
+                </div>
+                <div class="cyber-skill-card">
+                    <div class="skill-card-header">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <h3>Log Transport (Universal Forwarder)</h3>
+                    </div>
+                    <p class="edu-desc">Configured <code>inputs.conf</code> with <code>renderXml = true</code> to preserve structured metadata fields and directed outbound traffic over TCP:9997 with automatic connection pooling and resilient backoff handling.</p>
+                </div>
+                <div class="cyber-skill-card">
+                    <div class="skill-card-header">
+                        <i class="fa-solid fa-database"></i>
+                        <h3>SIEM Indexing &amp; Storage</h3>
+                    </div>
+                    <p class="edu-desc">Splunk Enterprise receiver listens on TCP:9997. Configured index-time field extractions with automatic fallback for XML-wrapped and standard Windows security logs under the isolated <code>endpoint_logs</code> index.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Showcase Section -->
+    <section id="dashboard" class="section">
+        <div class="container">
+            <h2 class="section-title">Cyber Command Center Dashboard <span class="line"></span></h2>
+            <p>
+                The operational SOC dashboard is defined in <code>splunk/dashboards/soc_dashboard.xml</code>. 
+                It features a futuristic command center aesthetic with dark charcoal backgrounds, neon green telemetry accents, cyan highlights, 
+                and red threat indicators across 9 operational rows and 17 panels.
+            </p>
+
+            <!-- Segment 1 -->
+            <div class="lab-screenshot-card">
+                <div class="lab-screenshot-header">
+                    <h4>Part 1: Command Center Header, Operational KPIs &amp; World Map HUD</h4>
+                    <span class="badge-row">Dashboard Rows 1, 2 &amp; 3</span>
+                </div>
+                <div class="lab-screenshot-body">
+                    <a href="images/soc-lab/01_soc_dashboard_overview.png" target="_blank" title="Click to view full resolution">
+                        <img src="images/soc-lab/01_soc_dashboard_overview.png" alt="SOC Command Center Header, KPIs and World Map HUD" loading="lazy">
+                    </a>
+                </div>
+                <div class="lab-screenshot-footer">
+                    <strong>Highlights:</strong> Operational status banner displaying monitored host (<code>DESKTOP-FOGONK9</code>), index (<code>endpoint_logs</code>), 
+                    DEFCON threat posture, three single-value KPI telemetry counters (67,724 Sysmon events, 59,542 process creations, 353 network sessions), 
+                    and the vector SVG World Map HUD showing local enclave connectivity alongside a real-time scrolling terminal ingestion feed.
+                </div>
+            </div>
+
+            <!-- Segment 2 -->
+            <div class="lab-screenshot-card">
+                <div class="lab-screenshot-header">
+                    <h4>Part 2: World Map Detail &amp; 24-Hour Telemetry Trend Sparklines</h4>
+                    <span class="badge-row">Dashboard Rows 3 &amp; 4</span>
+                </div>
+                <div class="lab-screenshot-body">
+                    <a href="images/soc-lab/02_soc_dashboard_overview.png" target="_blank" title="Click to view full resolution">
+                        <img src="images/soc-lab/02_soc_dashboard_overview.png" alt="Telemetry Trend Visualizations and World Map Enclave" loading="lazy">
+                    </a>
+                </div>
+                <div class="lab-screenshot-footer">
+                    <strong>Highlights:</strong> Four side-by-side timechart panels enabling multi-vector temporal anomaly correlation: Process Creations area chart (Neon green), 
+                    Network Sessions column chart (Purple), Failed Logins line chart (Alert red with interactive inspection tooltip showing 3 logon failures), and File Creations column chart (Cyan).
+                </div>
+            </div>
+
+            <!-- Segment 3 -->
+            <div class="lab-screenshot-card">
+                <div class="lab-screenshot-header">
+                    <h4>Part 3: Authentication Security &amp; Behavioral Threat Hunting</h4>
+                    <span class="badge-row">Dashboard Rows 5 &amp; 6</span>
+                </div>
+                <div class="lab-screenshot-body">
+                    <a href="images/soc-lab/03_soc_dashboard_overview.png" target="_blank" title="Click to view full resolution">
+                        <img src="images/soc-lab/03_soc_dashboard_overview.png" alt="Authentication Auditing and Suspicious PowerShell Hunting" loading="lazy">
+                    </a>
+                </div>
+                <div class="lab-screenshot-footer">
+                    <strong>Highlights:</strong> Chronological audit table of Event ID 4625 logon failures with target accounts (<code>Akash</code>, <code>guest</code>), caller IP addresses, 
+                    and logon types; aggregate logon failure count table; and behavioral detection of suspicious PowerShell execution mapped to MITRE ATT&amp;CK T1059.001 with parameter credential redaction.
+                </div>
+            </div>
+
+            <!-- Segment 4 -->
+            <div class="lab-screenshot-card">
+                <div class="lab-screenshot-header">
+                    <h4>Part 4: Endpoint Execution Forensics &amp; Script Noise Filtering</h4>
+                    <span class="badge-row">Dashboard Row 7</span>
+                </div>
+                <div class="lab-screenshot-body">
+                    <a href="images/soc-lab/04_soc_dashboard_overview.png" target="_blank" title="Click to view full resolution">
+                        <img src="images/soc-lab/04_soc_dashboard_overview.png" alt="PowerShell Execution Forensics and Noise Filtering" loading="lazy">
+                    </a>
+                </div>
+                <div class="lab-screenshot-footer">
+                    <strong>Highlights:</strong> Deep process forensics tracking binary execution paths (<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code>) 
+                    and Sysmon Event ID 11 script integrity monitoring validating automatic filtering of benign AppLocker test scripts (<code>__PSScriptPolicyTest_*.ps1</code>).
+                </div>
+            </div>
+
+            <!-- Segment 5 -->
+            <div class="lab-screenshot-card">
+                <div class="lab-screenshot-header">
+                    <h4>Part 5: Persistence Auditing &amp; Correlated Brute-Force Clusters</h4>
+                    <span class="badge-row">Dashboard Rows 8 &amp; 9</span>
+                </div>
+                <div class="lab-screenshot-body">
+                    <a href="images/soc-lab/05_soc_dashboard_overview.png" target="_blank" title="Click to view full resolution">
+                        <img src="images/soc-lab/05_soc_dashboard_overview.png" alt="Account Creation and Correlated Brute Force Detection" loading="lazy">
+                    </a>
+                </div>
+                <div class="lab-screenshot-footer">
+                    <strong>Highlights:</strong> MITRE ATT&amp;CK T1136.001 local user creation table auditing accounts (<code>SOCLabRealtime01</code>, <code>SOCLabTest4720</code>, <code>SOCAlertTest2</code>, <code>SOCTestUser</code>) 
+                    created by <code>Akash</code> over a 7-day retrospective window; and MITRE ATT&amp;CK T1110 10-minute time-binned brute-force correlation table tracking attempt volumes and timestamps.
+                </div>
+            </div>
+
+            <!-- Standalone Evidence Showcase -->
+            <div style="margin-top: 40px;">
+                <h3 style="color: white; margin-bottom: 20px;"><i class="fa-solid fa-magnifying-glass-chart" style="color: var(--accent);"></i> Standalone Search Evidence &amp; Report Documentation</h3>
+                <div class="cyber-skills-grid">
+                    <div class="cyber-skill-card reveal">
+                        <h4 style="color: white; margin-bottom: 10px;">Event ID 4720 Search App Triage</h4>
+                        <a href="images/soc-lab/03_event_id_4720_user_creation.png" target="_blank">
+                            <img src="images/soc-lab/03_event_id_4720_user_creation.png" alt="Event ID 4720 Search Results in Splunk" style="width: 100%; border-radius: 4px; margin-bottom: 10px;">
+                        </a>
+                        <p class="edu-desc" style="font-size: 0.85rem;">Formatted Splunk search results isolating account creation events created by administrator Akash over a 7-day lookback window.</p>
+                    </div>
+                    <div class="cyber-skill-card reveal">
+                        <h4 style="color: white; margin-bottom: 10px;">Event ID 4625 Failed Login Telemetry</h4>
+                        <a href="images/soc-lab/04_event_id_4625_failed_logins.png" target="_blank">
+                            <img src="images/soc-lab/04_event_id_4625_failed_logins.png" alt="Event ID 4625 Search Results in Splunk" style="width: 100%; border-radius: 4px; margin-bottom: 10px;">
+                        </a>
+                        <p class="edu-desc" style="font-size: 0.85rem;">Raw authentication audit records displaying source IP resolution, target accounts, and logon failure substatus codes.</p>
+                    </div>
+                    <div class="cyber-skill-card reveal">
+                        <h4 style="color: white; margin-bottom: 10px;">Sysmon Event ID 11 File Dropping</h4>
+                        <a href="images/soc-lab/02_sysmon_process_file_creation.png" target="_blank">
+                            <img src="images/soc-lab/02_sysmon_process_file_creation.png" alt="Sysmon Event ID 11 File Creation Telemetry" style="width: 100%; border-radius: 4px; margin-bottom: 10px;">
+                        </a>
+                        <p class="edu-desc" style="font-size: 0.85rem;">Validates 3,776 indexed Sysmon Event ID 11 events in endpoint_logs capturing file dropping and AppLocker validation artifacts.</p>
+                    </div>
+                    <div class="cyber-skill-card reveal">
+                        <h4 style="color: white; margin-bottom: 10px;">Rendered NIST Incident Report</h4>
+                        <a href="images/soc-lab/05_incident_report_document.png" target="_blank">
+                            <img src="images/soc-lab/05_incident_report_document.png" alt="Formal SOC Incident Report Document" style="width: 100%; border-radius: 4px; margin-bottom: 10px;">
+                        </a>
+                        <p class="edu-desc" style="font-size: 0.85rem;">Formal technical documentation detailing detection timeline, root cause analysis, containment actions, and remediation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Engineering Section -->
+    <section id="detections" class="section cyber-bg">
+        <div class="container">
+            <h2 class="section-title">Detection Engineering &amp; Production SPL <span class="line"></span></h2>
+            <p>
+                Custom detection queries were developed, hardened against XML/text log variations, and optimized with time-binning and regex credential masking.
+            </p>
+
+            <!-- Detection 1 -->
+            <div class="cyber-skill-card reveal" style="margin-bottom: 25px;">
+                <div class="skill-card-header">
+                    <i class="fa-solid fa-lock"></i>
+                    <div>
+                        <h3 style="margin: 0;">1. Correlated Multiple Failed Logins / Brute Force (Event ID 4625)</h3>
+                        <span class="badge-verified">MITRE ATT&amp;CK T1110</span>
+                        <span class="badge-verified">Production SPL</span>
+                    </div>
+                </div>
+                <p class="edu-desc">Extracts target username and source IP from Windows Security Event ID 4625 events, bins timestamps into 10-minute windows, and flags clusters with &ge; 3 failures.</p>
+                <div class="spl-code-block">
+<code>index="endpoint_logs" source="*Security*" ("4625" OR EventCode=4625)
+| rex field=_raw "&lt;EventID[^&gt;]*&gt;(?&lt;EventCode&gt;\d+)&lt;/EventID&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='TargetUserName'&gt;(?&lt;TargetUserName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='IpAddress'&gt;(?&lt;IpAddress&gt;[^&lt;]+)&lt;/Data&gt;"
+| search EventCode="4625"
+| eval TargetUserName=coalesce(TargetUserName, "Unknown"), IpAddress=coalesce(IpAddress, "-")
+| bin _time span=10m
+| stats count, earliest(_time) as first_seen, latest(_time) as last_seen by TargetUserName, IpAddress, host
+| where count &gt;= 3
+| eval first_seen=strftime(first_seen, "%Y-%m-%d %H:%M:%S"), last_seen=strftime(last_seen, "%Y-%m-%d %H:%M:%S")
+| sort - count</code>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+                    <strong>Alert Logic &amp; Noise Reduction:</strong> Grouping by 10-minute bins prevents individual user typing mistakes from triggering false alerts while accurately catching automated credential-stuffing loops. Service accounts with known intermittent sync errors are filtered using exclusion lookups.
+                </p>
+            </div>
+
+            <!-- Detection 2 -->
+            <div class="cyber-skill-card reveal" style="margin-bottom: 25px;">
+                <div class="skill-card-header">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <div>
+                        <h3 style="margin: 0;">2. New Local User Account Creation (Event ID 4720)</h3>
+                        <span class="badge-verified">MITRE ATT&amp;CK T1136.001</span>
+                        <span class="badge-verified">Production SPL</span>
+                    </div>
+                </div>
+                <p class="edu-desc">Audits unauthorized persistence via local account creation. Uses dual XML and message body regex parsing to extract target user and responsible administrator.</p>
+                <div class="spl-code-block">
+<code>index="endpoint_logs" source="*Security*" ("4720" OR EventCode=4720)
+| rex field=_raw "&lt;EventID[^&gt;]*&gt;(?&lt;EventCode&gt;\d+)&lt;/EventID&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='TargetUserName'&gt;(?&lt;TargetUserName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='SubjectUserName'&gt;(?&lt;SubjectUserName&gt;[^&lt;]+)&lt;/Data&gt;"
+| search EventCode="4720"
+| eval TargetUserName=coalesce(TargetUserName, user, "-"), SubjectUserName=coalesce(SubjectUserName, src_user, "-")
+| table _time, host, TargetUserName, SubjectUserName, EventCode
+| sort - _time</code>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+                    <strong>Alert Logic &amp; Noise Reduction:</strong> Immediate alert generation on any local user account provisioning. Correlated with approved change tickets; accounts created without a corresponding IT change window trigger immediate severity-high security response.
+                </p>
+            </div>
+
+            <!-- Detection 3 -->
+            <div class="cyber-skill-card reveal" style="margin-bottom: 25px;">
+                <div class="skill-card-header">
+                    <i class="fa-solid fa-terminal"></i>
+                    <div>
+                        <h3 style="margin: 0;">3. Suspicious PowerShell Execution &amp; Credential Redaction (Sysmon 1 &amp; 11)</h3>
+                        <span class="badge-verified">MITRE ATT&amp;CK T1059.001</span>
+                        <span class="badge-verified">In-Stream Redaction</span>
+                    </div>
+                </div>
+                <p class="edu-desc">Monitors encoded flags (<code>-enc</code>), bypass switches, and script drops while sanitizing passwords and tokens to protect data privacy.</p>
+                <div class="spl-code-block">
+<code>index="endpoint_logs" (source="*Microsoft-Windows-Sysmon/Operational*" OR source="*Sysmon*") (EventCode=1 OR EventCode=11)
+| rex field=_raw "(?ms)&lt;Data Name='Image'&gt;(?&lt;Image&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='CommandLine'&gt;(?&lt;CommandLine&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='TargetFilename'&gt;(?&lt;TargetFilename&gt;[^&lt;]+)&lt;/Data&gt;"
+| eval Image=coalesce(Image, process_path, "-"), CommandLine=coalesce(CommandLine, process_exec, "-"), TargetFilename=coalesce(TargetFilename, file_name, "-")
+| search Image="*powershell.exe*" OR TargetFilename="*.ps1" OR TargetFilename="*__PSScriptPolicyTest*"
+| rex mode=sed field=CommandLine "s/(Password|token|secret|key|pwd)\s*[:=]\s*[^\s]+/ \1=[REDACTED]/gi"
+| table _time, host, EventCode, Image, CommandLine, TargetFilename</code>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+                    <strong>Alert Logic &amp; Noise Reduction:</strong> Filters benign OS noise (such as PowerShell AppLocker policy tests <code>__PSScriptPolicyTest_*.ps1</code>) while actively surfacing base64 flags, hidden windows, and script execution bypasses. In-stream sed regex masks sensitive credentials from indexation and display.
+                </p>
+            </div>
+
+            <!-- Detection 4 -->
+            <div class="cyber-skill-card reveal" style="margin-bottom: 25px;">
+                <div class="skill-card-header">
+                    <i class="fa-solid fa-file-code"></i>
+                    <div>
+                        <h3 style="margin: 0;">4. PowerShell File Dropping &amp; Script Block Staging (Sysmon 11)</h3>
+                        <span class="badge-verified">MITRE ATT&amp;CK T1105</span>
+                        <span class="badge-verified">Forensic Auditing</span>
+                    </div>
+                </div>
+                <p class="edu-desc">Monitors file system modifications for scripts dropped into temporary directories (e.g. <code>\AppData\Local\Temp</code>) or suspicious staging paths.</p>
+                <div class="spl-code-block">
+<code>index="endpoint_logs" source="*Sysmon*" EventCode=11 TargetFilename="*.ps1"
+| rex field=_raw "(?ms)&lt;Data Name='Image'&gt;(?&lt;ProcessImage&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "(?ms)&lt;Data Name='TargetFilename'&gt;(?&lt;CreatedFile&gt;[^&lt;]+)&lt;/Data&gt;"
+| search NOT CreatedFile="*__PSScriptPolicyTest*"
+| table _time, host, ProcessImage, CreatedFile
+| sort - _time</code>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+                    <strong>Alert Logic:</strong> Captures dropper activity before execution begins. Correlates with process creation (Event ID 1) to determine the parent process responsible for staging malicious code.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Incident Reports Section -->
+    <section id="incidents" class="section">
+        <div class="container">
+            <h2 class="section-title">Incident Response Case Studies <span class="line"></span></h2>
+            <p>
+                Simulated attacks were executed following safe test plans and investigated using structured incident reports adhering to the NIST SP 800-61r2 computer security incident handling lifecycle.
+            </p>
+
+            <div class="incident-card reveal">
+                <div class="incident-header">
+                    <h3 class="incident-title"><i class="fa-solid fa-triangle-exclamation" style="color: #ffb86c; margin-right: 10px;"></i> Incident 01: Multiple Failed Windows Logins</h3>
+                    <span class="incident-badge-med">SEVERITY: MEDIUM • NIST SP 800-61r2</span>
+                </div>
+                <p><strong>Vector:</strong> Brute-force and credential-stuffing simulation targeting local user accounts (<code>guest</code>, <code>Akash</code>).</p>
+                <p><strong>Triage &amp; Analysis:</strong> Correlated 4625 events over 10-minute bins. Identified authentication failure status <code>0xC000006A</code> (incorrect password) originating from internal test sockets and loopback interfaces. Validated that no subsequent Event ID 4624 success occurred during the attack window.</p>
+                <p><strong>Containment &amp; Hardening:</strong> Configured Windows Account Lockout threshold (5 invalid attempts), recommended MFA enforcement, and implemented automated threshold alerting.</p>
+                <p><strong>Lessons Learned:</strong> Threshold alerts must combine both account name and caller IP to detect horizontal password spraying alongside vertical brute-force attempts.</p>
+            </div>
+
+            <div class="incident-card reveal">
+                <div class="incident-header">
+                    <h3 class="incident-title"><i class="fa-solid fa-user-shield" style="color: #ff3366; margin-right: 10px;"></i> Incident 02: New Local User Account Creation</h3>
+                    <span class="incident-badge-high">SEVERITY: HIGH • PERSISTENCE (T1136.001)</span>
+                </div>
+                <p><strong>Vector:</strong> Unauthorized local user account addition (<code>SOCLabRealtime01</code>, <code>SOCLabTest4720</code>) executed via administrative Command Prompt.</p>
+                <p><strong>Triage &amp; Analysis:</strong> Investigated Security Event ID 4720. Extracted responsible subject user (<code>Akash</code>) and target account. Verified correlated Event ID 4738 (user account modification) and confirmed absence of approved change ticket.</p>
+                <p><strong>Containment &amp; Remediation:</strong> Account disabled and removed via <code>net user &lt;account&gt; /delete</code>. Audited Active Directory and local administrator group memberships.</p>
+                <p><strong>Lessons Learned:</strong> Local account creation should be restricted via group policies (GPO) and monitored via real-time high-severity alerts dispatched to on-call SOC analysts.</p>
+            </div>
+
+            <div class="incident-card reveal">
+                <div class="incident-header">
+                    <h3 class="incident-title"><i class="fa-solid fa-terminal" style="color: #00ff88; margin-right: 10px;"></i> Incident 03: Suspicious Encoded PowerShell Execution</h3>
+                    <span class="incident-badge-med">SEVERITY: MEDIUM • DEFENSE EVASION (T1059.001)</span>
+                </div>
+                <p><strong>Vector:</strong> Harmless base64-encoded command execution (<code>powershell -enc ZQBjAGgAbwAgACIAVABlAHMAdAAiAA==</code>) simulating obfuscated dropper activity.</p>
+                <p><strong>Triage &amp; Analysis:</strong> Correlated Sysmon Event ID 1 (Process Create) with Event ID 11 (File Create). Decoded payload to confirm harmless <code>echo "Test"</code> test command. Filtered out transient AppLocker policy check files (<code>__PSScriptPolicyTest_*.ps1</code>) to ensure high-fidelity alerting.</p>
+                <p><strong>Containment &amp; Recommendations:</strong> Enforce PowerShell Constrained Language Mode, enable PowerShell Script Block Logging (Event ID 4104), and restrict execution policies.</p>
+                <p><strong>Lessons Learned:</strong> Encoded command execution in user space should be treated as suspicious by default; automated de-obfuscation pipelines accelerate analyst triage time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIEM Security Boundary & Enterprise Hosting Section -->
+    <section id="security-boundary" class="section cyber-bg">
+        <div class="container">
+            <h2 class="section-title">SIEM Security Boundary &amp; Enterprise Architecture <span class="line"></span></h2>
+            
+            <div class="cyber-skill-card reveal" style="max-width: 960px; margin: 0 auto;">
+                <div class="skill-card-header">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent); font-size: 1.8rem;"></i>
+                    <div>
+                        <h3 style="margin: 0;">Defensive SIEM Operational Boundary</h3>
+                        <p style="margin: 0; font-size: 0.85rem; color: var(--accent); font-family: var(--font-mono);">Zero-Trust Architecture // Enclave Isolation // Threat Prevention</p>
+                    </div>
+                </div>
+
+                <div class="security-callout">
+                    <h4><i class="fa-solid fa-lock"></i> Why Raw SIEM Ports Are Never Exposed Over the Internet</h4>
+                    <p>
+                        In defensive enterprise cybersecurity, security consoles such as Splunk Enterprise Web (port 8000) and management APIs (port 8089) 
+                        must <strong>never be exposed directly to the public internet</strong>. Exposing raw SIEM ports introduces severe risk: WAN-wide brute force attacks, 
+                        potential zero-day exploitation, and reconnaissance against internal security infrastructure.
+                    </p>
+                </div>
+
+                <h4 style="color: white; margin: 25px 0 15px; font-family: var(--font-mono);"><i class="fa-solid fa-network-wired" style="color: var(--accent);"></i> Enterprise Production Access Pattern:</h4>
+                <div class="spl-code-block" style="color: #a8b2d1;">
+[Remote SOC Analyst / Incident Responder]
+              │
+              ▼  (1. Mutual TLS / Zero-Trust Authentication)
+┌─────────────────────────────────────────────────────────────┐
+│   Zero-Trust Network Access (ZTNA) / Corporate VPN Gate     │
+│   - Continuous Device Posture Validation                    │
+│   - SAML 2.0 / Okta / Azure AD Multi-Factor Auth (MFA)      │
+└─────────────────────────────┬───────────────────────────────┘
+                              │
+                              ▼  (2. Enclave Perimeter Ingress)
+┌─────────────────────────────────────────────────────────────┐
+│   Hardened Reverse Proxy (NGINX / Cloudflare Access WAF)    │
+│   - Strict IP Allowlisting &amp; Rate Limiting                  │
+│   - TLS 1.3 Termination &amp; HTTP Security Headers             │
+└─────────────────────────────┬───────────────────────────────┘
+                              │
+                              ▼  (3. Internal Segmented Network)
+┌─────────────────────────────────────────────────────────────┐
+│   Splunk Enterprise Core SIEM Console (Port 8000 / 8089)    │
+│   - Isolated VLAN / Local Host Loopback                     │
+│   - Role-Based Access Control (RBAC Tiering)                │
+└─────────────────────────────────────────────────────────────┘
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <h4 style="color: white; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="color: var(--accent);"></i> Portfolio Showcase Strategy</h4>
+                    <p class="edu-desc">
+                        To maintain host security and uphold zero-trust principles on this workstation, this public portfolio does not expose live SIEM ports or tunnel raw network traffic. 
+                        Instead, 100% of the operational value—including complete telemetry data pipelines, production SPL detection logic, high-resolution 17-panel Cyber Command Center captures, and NIST incident case studies—is openly documented and verified in this published showcase.
+                    </p>
+                </div>
+                <div style="background: rgba(7, 26, 43, 0.85); border: 1px solid rgba(100, 255, 218, 0.25); border-radius: 6px; padding: 22px; margin: 30px 0 20px; text-align: center;">
+                    <h4 style="color: white; margin-bottom: 8px; font-family: var(--font-mono);"><i class="fa-solid fa-desktop" style="color: var(--accent);"></i> Live Host SIEM Console (Local PC Enclave)</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 18px;">
+                        When running directly on this Windows analyst workstation, click below to open your local Splunk Enterprise Web dashboard.
+                    </p>
+                    <a href="http://localhost:8000" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 12px 28px; font-size: 0.95rem;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Splunk Dashboard (http://localhost:8000)
+                    </a>
+                    <p style="margin-top: 14px; font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0;">
+                        <span class="badge-verified"><i class="fa-solid fa-circle-check"></i> Host Service: Active</span> Target: <code>http://localhost:8000</code> • Native Splunk Enterprise Web Authentication
+                    </p>
+                </div>
+
+                <div class="troubleshooting-box">
+                    <h4><i class="fa-solid fa-wrench"></i> Local Splunk Web Troubleshooting (If Stopped or Unreachable)</h4>
+                    <ol>
+                        <li><strong>Check Splunk Service Status:</strong> Open PowerShell and run <code>Get-Service Splunkd</code>. The status should report <code>Running</code>.</li>
+                        <li><strong>Start the Service (If Stopped):</strong> Open PowerShell as Administrator and execute <code>Start-Service Splunkd</code> (or command prompt <code>net start Splunkd</code>).</li>
+                        <li><strong>Confirm Listening Web Port (8000):</strong> Run <code>Get-NetTCPConnection -LocalPort 8000 -State Listen</code> to ensure <code>splunkd.exe</code> is accepting loopback traffic.</li>
+                        <li><strong>Browser Direct Navigation:</strong> Open your browser to <code>http://localhost:8000</code> or <code>http://127.0.0.1:8000</code>.</li>
+                        <li><strong>Authentication:</strong> Log in using the administrator credentials configured during your local Splunk Enterprise setup.</li>
+                        <li><strong>Open the Command Center Dashboard:</strong> Inside Splunk Web, navigate to <em>Apps</em> &gt; <em>Search &amp; Reporting</em> &gt; <em>Dashboards</em> &gt; <em>SOC Cyber Command Center</em>.</li>
+                    </ol>
+                </div>
+
+                <div style="text-align: center; margin: 30px 0 10px;">
+                    <a href="#overview" class="btn btn-primary" style="padding: 12px 26px;">
+                        <i class="fa-solid fa-arrow-up"></i> Return to Lab Overview
+                    </a>
+                    <a href="index.html#projects" class="btn btn-secondary" style="padding: 12px 26px;">
+                        <i class="fa-solid fa-arrow-left"></i> Return to Main Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engineering Verification Disclosure -->
+    <section class="section" style="padding: 40px 0 80px;">
+        <div class="container">
+            <div class="cyber-skill-card" style="border-left: 3px solid var(--accent); padding: 25px;">
+                <h4 style="color: white; margin-bottom: 10px; font-family: var(--font-mono);"><i class="fa-solid fa-clipboard-check" style="color: var(--accent);"></i> Engineering Verification Transparency</h4>
+                <p style="font-size: 0.9rem; margin-bottom: 0;">
+                    <strong>Verified &amp; Operational:</strong> Sysmon and Windows Security log collection, Splunk Universal Forwarder transmission over TCP:9997, 
+                    dedicated indexation in <code>endpoint_logs</code>, custom SPL search logic, in-stream credential masking, and 17-panel Cyber Command Center dashboard visualization.<br>
+                    <strong>Pending Real-Time Evaluation:</strong> Automated scheduled alert dispatch evaluations (cron <code>*/15 * * * *</code>) and SMTP delivery remain pending live simulated attack confirmation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <p style="margin: 0;">&copy; 2026 Akash Dattu Jadhav. SOC Analyst Home Lab Project.</p>
+            <div style="display: flex; gap: 20px;">
+                <a href="index.html#projects"><i class="fa-solid fa-arrow-left"></i> Back to Main Portfolio</a>
+                <a href="public/resume/Akash_Jadhav_SOC_Analyst_Resume.pdf" target="_blank"><i class="fa-solid fa-download"></i> Download Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
