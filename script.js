@@ -173,8 +173,6 @@ const initNetworkBackground = () => {
         
         ctx.save();
         ctx.translate(mouse.x, mouse.y); 
-
-        // Update and Draw Nodes
         nodes.forEach(node => {
             node.update();
             node.draw();

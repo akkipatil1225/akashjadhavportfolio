@@ -357,7 +357,7 @@ a:hover {
 }
 
 .skill-category ul li::before {
-    content: "â–¹";
+    content: "▸";
     position: absolute;
     left: 0;
     color: var(--accent);
@@ -431,7 +431,7 @@ a:hover {
 }
 
 .timeline-content ul li::before {
-    content: "â–¹";
+    content: "▸";
     position: absolute;
     left: 0;
     color: var(--accent);
@@ -1364,6 +1364,7 @@ footer {
 }
 
 .cyber-skill-card {
+    background: rgba(100, 255, 218, 0.05);
     background: rgba(10, 25, 47, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -2279,4 +2280,3 @@ footer {
     line-height: 1.6;
     background: rgba(7, 26, 43, 0.6);
 }
-
